@@ -1,20 +1,41 @@
 import { useState } from 'react'
-import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [Todo, settodo] = useState([]);
 
-  function changeit() {
-    setCount(prevCount => prevCount + 1);
+  function addtodo()
+  {
+    settodo([
+    ...Todo,
+    {
+      title: document.getElementById("title").value,
+      description: document.getElementById("description").value,
+      done: true,
+    },
+]);
   }
-
-  return (
-    <>
-      <button onClick={changeit}>
-        Increment = {count}
-      </button>
-    </>
-  );
+ 
+  return <>
+    <input type="text" placeholder="enter the title" id="title"></input>
+    <input type="text" placeholder="enter the description" id="description"></input>
+    <button onClick={addtodo}>Add Todo</button>
+    <br />
+    {Todo.map((todo) => (
+        <Todos
+          title={todo.title}
+          description={todo.description}
+          done={todo.done}
+        />
+      ))}
+  </>
+}
+function Todos(props)
+{
+  return <>
+  <h1>{props.title}</h1>
+  <h1>{props.description}</h1>
+  <h1>{props.done ? "task is done" : "task is not done"}</h1>
+  </>
 }
 
-export default App;
+export default App
