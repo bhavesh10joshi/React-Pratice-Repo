@@ -1,21 +1,28 @@
 import { useState , useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count , Setcount] = useState(0);
 
+  function increasecount()
+  {
+    Setcount(c => c+1);
+  }
+  return<>
+    <Counter count={count}></Counter>
+    <button onClick={increasecount}>Increament</button>
+  </> 
+}
+function Counter(props)
+{
+  
   useEffect(function()
   {
-    setInterval( setCount(function(count)
-    {
-      return count+1;
-    }) , 10000)
-  } , [])
+    console.log("count was changed ! ");
+  } , [props.count]);
+
   return <>
-    <h1> {count} </h1>
+    <div>{props.count}</div>
   </>
 }
-
 export default App
