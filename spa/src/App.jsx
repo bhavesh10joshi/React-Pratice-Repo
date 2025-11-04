@@ -1,61 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import {BrowserRouter , Routes , Route , Link , useNavigate, Outlet} from "react-router-dom"
+import { useRef, useState } from "react";
+import "./App.css";
 
-function App() {
-  return <>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout/>}>
-          <Route path="/Class11th" element={<ClassE/>}/>
-          <Route path="/Class12th" element={<Classt/>}/>
-          <Route path="*" element={<Error/>}/>
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  </>
-}
-function Layout()
+function useCounter()
 {
-  return<>
-  <div>
-    <Header/>
-  </div>
-  <Outlet/>
-  <div>
-    This is the funcing footer !
-  </div>
-  </>
+  const [count , setCount] = useState(0);
+  function increasecount()
+  {
+    setCount(function(count)
+    {
+      return count+1;
+    });
+  }
+  return{
+    increasecount : increasecount , 
+    count : count 
+  }
 }
-function Error()
+function App()
 {
   return <>
-  Some Error Encountered !
+    <Counter/>
+    <Counter/>
   </>
 }
-function Header()
-{
+function Counter() {
+  const{increasecount , count} = useCounter();
+
   return <>
-    <Link to="/Class11th"> 11th class</Link>
-    <Link to="/Class12th"> 12th class</Link>
+    <button onClick={increasecount}>Increase</button>
+    <h1>{count}</h1>
   </>
 }
-function ClassE()
-{
-  return <>
-  <div>
-    this is the page for class 11th
-  </div>
-  </>
-}
-function Classt()
-{
-  return <>
-    <div>
-    this is the page for class 12th
-  </div>
-  </>
-}
-export default App
+
+export default App;
